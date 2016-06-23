@@ -65,6 +65,7 @@ var mongoose = require('mongoose');
 require('./models/Posts');
 require('./models/Comments');
 
-mongoose.connect('mongodb.services.clever-cloud.com:27017/bq608aruh0oisb3',{user:'unohyoyqbewibhr',pass:'AfD4l6dxQyDlEuqoFZt6'});
+mongoose.connect('mongodb://unohyoyqbewibhr:AfD4l6dxQyDlEuqoFZt6@bq608aruh0oisb3-mongodb.services.clever-cloud.com:27017/bq608aruh0oisb3');
+
 
 module.exports = app;
