@@ -51,7 +51,7 @@
   </span>
   </div>
 
-    <form ng-submit="addPost()">
+    <form ng-submit="addPost()" ng-show="isLoggedIn()">
 
     <h3>Add a new post</h3>
       <div class="form-group"><input type="text" class="form-control" placeholder="Title" ng-model="title"></div>
@@ -165,7 +165,7 @@
   <div class="row" ng-controller='MainController'>
     <div class="col-md-6 col-md-offset-3">
       <div ng-hide="isLoggedIn()">
-    <h4>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can comment.</h4>
+    <h4>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can post or comment.</h4>
   </div>
     </div>
   </div>
