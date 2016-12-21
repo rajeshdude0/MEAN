@@ -155,6 +155,7 @@ o.get = function(id) {
 
 app.controller('PostsController',['$scope','posts','post','auth',function($scope,posts,post,auth){
   $scope.post = post;
+  console.log(post.comments);
   $scope.incrementUpvotes = function(comment){
     //console.log(comment);
    //console.log(post);
@@ -183,6 +184,7 @@ app.controller('PostsController',['$scope','posts','post','auth',function($scope
 app.controller('MainController',['$scope','posts','auth',function($scope,posts,auth){
     $scope.test = "hello this is my world";
     $scope.posts = posts.posts;
+    console.log(posts.posts);
 
     $scope.addPost = function(){
     if(!$scope.title || $scope.title === '') { return; }
@@ -192,6 +194,7 @@ app.controller('MainController',['$scope','posts','auth',function($scope,posts,a
     });
     $scope.title = '';
     $scope.link = '';
+    
   };
 
 
