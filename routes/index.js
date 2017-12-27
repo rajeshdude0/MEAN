@@ -1,3 +1,5 @@
+
+
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -129,10 +131,14 @@ router.post('/login',function(req, res, next){
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message:'Please fill out all fields.'}) ;
   }
-
   passport.authenticate('local',function(err,user,info){
     if(err){return next(err);}
     if(user){
+      req.session.save(function(err){
+        if(err)
+        console.log("Error while saving session");
+        console.log('Session saved!');
+      })
       return res.json({token:user.generateJWT()});
     }else{
       return res.status(401).json(info);
@@ -140,5 +146,17 @@ router.post('/login',function(req, res, next){
   })(req,res,next);
 });
 
+router.post('/logout', auth, function(req, res, next){
+  console.log(req.session);
+  if(req.session){
+   req.session.destroy(function(err){
+     if(err) console.log('Error while destroying session');
+     console.log("Session destroyed successfully..");
+     res.status(200).end();
+   })
+  } else{
+   res.status(501).end();
+  }
+});
 
 module.exports = router;

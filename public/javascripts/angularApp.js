@@ -147,7 +147,14 @@ o.get = function(id) {
    };
 
   auth.logOut = function(){
-    $window.localStorage.removeItem('week-demo');
+
+    return $http.post('/logout',{},{
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      $window.localStorage.removeItem('week-demo');
+    }).error(function(err){
+      console.log(err);
+    });
   }
    return auth;
 }])
@@ -194,7 +201,7 @@ app.controller('MainController',['$scope','posts','auth',function($scope,posts,a
     });
     $scope.title = '';
     $scope.link = '';
-    
+
   };
 
 
