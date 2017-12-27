@@ -3,7 +3,12 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var passport = require('passport');
 var jwt = require('express-jwt');
+var jwtPermission = require('express-jwt-permissions');
 var auth = jwt({secret:'SECRET', userProperty:'payload'});
+var guard = jwtPermission({
+   requestProperty: 'payload',
+   permissionsProperty:'permissions'
+})
 require('../models/Posts');
 require('../models/Comments');
 require('../models/User');
@@ -23,7 +28,7 @@ router.get('/posts', function(req, res, next) {
   });
 });
 
-router.post('/posts', auth, function(req, res, next) {
+router.post('/posts', auth,guard.check('write'), function(req, res, next) {
   var post = new Post(req.body);
   post.author = req.payload.username;
   post.save(function(err, post){
@@ -65,7 +70,7 @@ router.get('/posts/:post', function(req, res) {
 
 });
 
-router.put('/posts/:post/upvote', auth, function(req, res, next) {
+router.put('/posts/:post/upvote', auth, guard.check('update'), function(req, res, next) {
   req.post.upvote(function(err, post){
     if (err) { return next(err); }
     res.json(post);
@@ -107,10 +112,11 @@ router.post('/register',function(req,res,next){
     return res.status(400).json({message:'Please fill out all fields.'});
   }
 
+  var roles = ['read','write','update'];
   var user = new User();
   user.username = req.body.username;
   user.setPassword(req.body.password);
-
+  user.role = roles;
   user.save(function(err){
     if(err){return next(err);}
 
