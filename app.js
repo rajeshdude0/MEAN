@@ -30,9 +30,9 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-mongoose.connect('mongodb://localhost/news');
+//mongoose.connect('mongodb://localhost/news');
 //mongoose.connect('mongodb.services.clever-cloud.com:27017/bq608aruh0oisb3',{user:'unohyoyqbewibhr',pass:'AfD4l6dxQyDlEuqoFZt6'});
-//mongoose.connect('mongodb://unohyoyqbewibhr:AfD4l6dxQyDlEuqoFZt6@bq608aruh0oisb3-mongodb.services.clever-cloud.com:27017/bq608aruh0oisb3');
+mongoose.connect('mongodb://unohyoyqbewibhr:AfD4l6dxQyDlEuqoFZt6@bq608aruh0oisb3-mongodb.services.clever-cloud.com:27017/bq608aruh0oisb3');
 console.log("initializing the sessions..");
 
 
